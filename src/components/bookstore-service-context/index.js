@@ -1,9 +1,8 @@
 import {
-  BookStoreServiceProvider,
-  BookStoreServiceConsumer
-} from "./book-store-context";
+  BookstoreServiceConsumer,
+  BookstoreServiceProvider}
+  from './bookstore-context'
 
 export {
-  BookStoreServiceProvider,
-  BookStoreServiceConsumer
+  BookstoreServiceConsumer, BookstoreServiceProvider
 };
