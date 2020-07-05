@@ -1,15 +1,15 @@
 import React from "react";
 import {Route, Switch} from 'react-router-dom'
 import HomePage from "../pages/home-page";
-import CartPage from "../pages/cart-page";
 import ShopHeader from "../shop-header";
+import ShoppingCartTable from "../shopping-cart-table/shopping-cart-table";
 
 import './app.css';
 
 const App = () => {
   return (
     <main role='main' className='container'>
-      <ShopHeader numItems={2} total={1200}/>
+      <ShopHeader />
       <Switch>
         <Route
           path='/'
@@ -18,7 +18,7 @@ const App = () => {
 
         <Route
           path='/cart'
-          component={CartPage}/>
+          component={ShoppingCartTable}/>
       </Switch>
     </main>
 
