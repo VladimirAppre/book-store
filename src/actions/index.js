@@ -1,7 +1,5 @@
 const booksRequested = () => {
-  return {
-    type: 'FETCH_BOOKS_REQUESTED',
-  };
+  return 'FETCH_BOOKS_REQUESTED';
 };
 
 const booksLoaded = (newBooks) => {
