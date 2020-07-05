@@ -1,7 +1,37 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import './shopping-cart-table.css';
 
-const ShoppingCartTable = () => {
+const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => {
+  const renderRow = (item, index) => {
+    const {id, name, count, total} = item;
+    return (
+      <tr key={id}>
+        <td>{index + 1}</td>
+        <td>{name}</td>
+        <td>{count}</td>
+        <td>{total} ₽</td>
+        <td>
+          <button
+            onClick={() => onDelete(id)}
+            className="btn btn-outline-danger btn-sm float-right">
+            <i className="fa fa-trash-o"/>
+          </button>
+          <button
+            onClick={() => onIncrease(id)}
+            className="btn btn-outline-success btn-sm float-right">
+            <i className="fa fa-plus-circle"/>
+          </button>
+          <button
+            onClick={() => onDecrease(id)}
+            className="btn btn-outline-warning btn-sm float-right">
+            <i className="fa fa-minus-circle"/>
+          </button>
+        </td>
+      </tr>
+    )
+  }
+
   return (
     <div className="shopping-cart-table">
       <h2>Ваш заказ</h2>
@@ -17,31 +47,40 @@ const ShoppingCartTable = () => {
         </thead>
 
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>Вы не знаете JS!</td>
-          <td>2</td>
-          <td>650 ₽</td>
-          <td>
-            <button className="btn btn-outline-danger btn-sm float-right">
-              <i className="fa fa-trash-o" />
-            </button>
-            <button className="btn btn-outline-success btn-sm float-right">
-              <i className="fa fa-plus-circle" />
-            </button>
-            <button className="btn btn-outline-warning btn-sm float-right">
-              <i className="fa fa-minus-circle" />
-            </button>
-          </td>
-        </tr>
+        {
+          items.map(renderRow)
+        }
         </tbody>
       </table>
 
       <div className="total">
-        Итого: 1300 ₽
+        Итого: {total} ₽
       </div>
     </div>
   );
 };
 
-export default ShoppingCartTable;
+const mapStateToProps = ({cartItems, orderTotal}) => {
+  return {
+    items: cartItems,
+    total: orderTotal
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {
+    onIncrease : (id) => {
+      console.log(`Increase ${id}`)
+    },
+
+    onDecrease: (id) => {
+      console.log(`inDecrease ${id}`)
+    },
+
+    onDelete: (id) => {
+      console.log(`onDelete ${id}`)
+    },
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartTable) ;
